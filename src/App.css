@@ -165,6 +165,13 @@ body {
     margin-top: 2%;
   }
 }
+@media only screen and (max-width: 700px) {
+  .flag img {
+    height: 300px;
+    width: 300px;
+    margin-top: 8%;
+  }
+}
 @media only screen and (max-width: 600px) {
   .cards {
     margin-top: 35%;
@@ -208,5 +215,17 @@ body {
   }
   .card{
     width: 20rem;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .flag {
+    margin-left: 0%;
+  }
+  .flag img {
+    height: 300px;
+    width: 300px;
+  }
+  .cards{
+    margin-left: 2%;
   }
 }
