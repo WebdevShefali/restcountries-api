@@ -19,7 +19,7 @@ const Header = (props) => {
           }}
           onClick={props.toggleMode}
         >
-          <i className="fa-regular fa-moon"></i>
+          
           {props.mode === "light" ? "Dark Mode" : "Light Mode"}
         </h5>
       </div>
