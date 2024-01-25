@@ -23,7 +23,7 @@ const Countries = (props) => {
 
   const handleChange = (e) => {
     setSearchInput(e);
-    if (searchInput) {
+    if (e) {
       const searchedCountry = countries.filter((name) => {
         return Object.values(name)
           .join(" ")
@@ -32,9 +32,10 @@ const Countries = (props) => {
       });
       setFilter(searchedCountry);
     } else {
-      setFilter(countries);
+      setFilter([]);
     }
   };
+
   const filterData = async (e) => {
     let data = await fetch(`https://restcountries.com/v2/region/${e}`);
     let res = await data.json();
@@ -150,10 +151,10 @@ const Countries = (props) => {
 
         {loading && <Spinner />}
       </div>
-      {searchInput.length > 0 ? (
-        <div className="cards ">
-          {filter.map((element) => {
-            return (
+      <div className="cards ">
+        {searchInput.length > 0 ? (
+          filter.length > 0 ? (
+            filter.map((element) => (
               <div
                 className="card"
                 key={element.numericCode}
@@ -188,51 +189,51 @@ const Countries = (props) => {
                   </Link>
                 </div>
               </div>
-            );
-          })}
-        </div>
-      ) : (
-        <div className="cards ">
-          {countries.map((element) => {
-            return (
-              <div
-                className="card"
-                key={element.numericCode}
-                style={{
-                  width: "18rem",
-                  backgroundColor:
-                    props.mode === "dark"
-                      ? "hsl(209, 23%, 22%)"
-                      : "hsl(0, 0%, 100%)",
-                  color: props.mode === "light" ? "#000000" : "#fff",
-                }}
-              >
-                <img src={element.flag} className="card-img-top" alt="..." />
-                <div className="card-body">
-                  <h4 className="card-title">{element.name}</h4>
-                  <p className="card-text">Population: {element.population} </p>
-                  <p className="card-text">Region: {element.region} </p>
-                  <p className="card-text">Capital: {element.capital} </p>
-                  <Link to={`/Countries/${element.name}`}>
-                    <button
-                      className="btn"
-                      style={{
-                        backgroundColor:
-                          props.mode === "dark"
-                            ? "hsl(209, 23%, 22%)"
-                            : "hsl(0, 0%, 98%)",
-                        color: props.mode === "light" ? "#000000" : "#fff",
-                      }}
-                    >
-                      Learn more...
-                    </button>
-                  </Link>
-                </div>
+            ))
+          ) : (
+            <p     style={{
+              color: props.mode === "light" ? "#000000" : "#fff",
+            }}>No results found</p>
+          )
+        ) : (
+          countries.map((element) => (
+            <div
+              className="card"
+              key={element.numericCode}
+              style={{
+                width: "18rem",
+                backgroundColor:
+                  props.mode === "dark"
+                    ? "hsl(209, 23%, 22%)"
+                    : "hsl(0, 0%, 100%)",
+                color: props.mode === "light" ? "#000000" : "#fff",
+              }}
+            >
+              <img src={element.flag} className="card-img-top" alt="..." />
+              <div className="card-body">
+                <h4 className="card-title">{element.name}</h4>
+                <p className="card-text">Population: {element.population} </p>
+                <p className="card-text">Region: {element.region} </p>
+                <p className="card-text">Capital: {element.capital} </p>
+                <Link to={`/Countries/${element.name}`}>
+                  <button
+                    className="btn"
+                    style={{
+                      backgroundColor:
+                        props.mode === "dark"
+                          ? "hsl(209, 23%, 22%)"
+                          : "hsl(0, 0%, 98%)",
+                      color: props.mode === "light" ? "#000000" : "#fff",
+                    }}
+                  >
+                    Learn more...
+                  </button>
+                </Link>
               </div>
-            );
-          })}
-        </div>
-      )}
+            </div>
+          ))
+        )}
+      </div>
     </>
   );
 };
